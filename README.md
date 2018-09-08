@@ -1,5 +1,5 @@
-## udacity-third-project
-Logs Analysis:-
+# udacity-third-project
+### Logs Analysis:-
 In this project we are building an internal reporting tool that will use information from the database to discover
 what kind of articles the site's readers like. 
 There are three questions 
@@ -8,13 +8,13 @@ There are three questions
 3. On which days did more than 1% of requests lead to errors?
 we are using python3 program using the psycopg2 module to connect to the database.
 
-# requirement:-
-  a.Python3
+### requirement:-
+  a.Python3 /n
   b.Vagrant
   c.VirtualBox
   d.git
 
-# Setup-
+### Setup-
    Download & Install python3
    Download & Install Vagrant 
    Download & Install VirtualBox
@@ -22,7 +22,7 @@ we are using python3 program using the psycopg2 module to connect to the databas
    Download the daatabase setup file (https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip)
    
 
-# To_Run-
+### To_Run-
   Launch Vagrant VM by running 'vagrant up'
   To connect, use the command 'vagrant ssh'
   To load the data, use the command 'psql -d news -f newsdata.sql'
@@ -30,7 +30,7 @@ we are using python3 program using the psycopg2 module to connect to the databas
   To run the python program, use the command 'python pythonlog.py'
 
 
-# The database includes 3 tables-
+### The database includes 3 tables-
 a. Authors table
 b. Articles table
 c. Log table
