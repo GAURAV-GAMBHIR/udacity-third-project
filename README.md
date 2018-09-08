@@ -5,7 +5,7 @@ what kind of articles the site's readers like.
 There are three questions 
 1. What are the most popular three articles of all time? , 
 2. Who are the most popular article authors of all time?, 
-3. On which days did more than 1% of requests lead to errors?,
+3. On which days did more than 1% of requests lead to errors?,      
 we are using python3 program using the psycopg2 module to connect to the database.
 
 ### requirement:-
@@ -29,9 +29,5 @@ we are using python3 program using the psycopg2 module to connect to the databas
   To run the database, use the command 'psql -d news'         
   To run the python program, use the command 'python pythonlog.py'          
 
-
-### The database includes 3 tables-
-a. Authors table          
-b. Articles table       
-c. Log table        
+  
 
