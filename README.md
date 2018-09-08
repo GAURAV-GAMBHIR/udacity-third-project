@@ -5,13 +5,13 @@ what kind of articles the site's readers like.
 There are three questions 
 1. What are the most popular three articles of all time? , 
 2. Who are the most popular article authors of all time?, 
-3. On which days did more than 1% of requests lead to errors?
+3. On which days did more than 1% of requests lead to errors?,
 we are using python3 program using the psycopg2 module to connect to the database.
 
 ### requirement:-
-  a.Python3 /n
-  b.Vagrant
-  c.VirtualBox
+  a.Python3,     
+  b.Vagrant,
+  c.VirtualBox,
   d.git
 
 ### Setup-
