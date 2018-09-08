@@ -10,28 +10,28 @@ we are using python3 program using the psycopg2 module to connect to the databas
 
 ### requirement:-
   a.Python3,     
-  b.Vagrant,
-  c.VirtualBox,
+  b.Vagrant,      
+  c.VirtualBox,     
   d.git
 
 ### Setup-
-   Download & Install python3
-   Download & Install Vagrant 
-   Download & Install VirtualBox
-   Download the vagrant setup file (https://github.com/udacity/fullstack-nanodegree-vm)
+   Download & Install python3         
+   Download & Install Vagrant           
+   Download & Install VirtualBox          
+   Download the vagrant setup file (https://github.com/udacity/fullstack-nanodegree-vm)         
    Download the daatabase setup file (https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip)
    
 
 ### To_Run-
-  Launch Vagrant VM by running 'vagrant up'
-  To connect, use the command 'vagrant ssh'
-  To load the data, use the command 'psql -d news -f newsdata.sql'
-  To run the database, use the command 'psql -d news'
-  To run the python program, use the command 'python pythonlog.py'
+  Launch Vagrant VM by running 'vagrant up'         
+  To connect, use the command 'vagrant ssh'         
+  To load the data, use the command 'psql -d news -f newsdata.sql'          
+  To run the database, use the command 'psql -d news'         
+  To run the python program, use the command 'python pythonlog.py'          
 
 
 ### The database includes 3 tables-
-a. Authors table
-b. Articles table
-c. Log table
+a. Authors table          
+b. Articles table       
+c. Log table        
 
