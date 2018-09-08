@@ -10,10 +10,14 @@ we are using python3 program using the psycopg2 module to connect to the databas
   d.git
 
 #Setup-
-   Download & Install python3 
+   Download & Install python3
+   
    Download & Install Vagrant 
+   
    Download & Install VirtualBox
+   
    Download the vagrant setup file (https://github.com/udacity/fullstack-nanodegree-vm)
+   
    Download the daatabase setup file (https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip)
    
 
