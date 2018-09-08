@@ -6,12 +6,15 @@ from datetime import date
 
 db_name = "news"
 
+# 1. What are the most popular three articles of all time?
 query1 = "select title, count(title) from article_view WHERE GROUP BY title AND limit 3"
 
+# 2. Who are the most popular article authors of all time?
 query2 = """select authors.name,sum(article_view.views) as views from
 article_view,authors where authors.id = article_view.author
 group by authors.name order by views desc"""
 
+# 3. On which days did more than 1% of requests lead to errors?
 query3 = "select * from error_log_view where \"Percent Error\" > 1"
 
 
