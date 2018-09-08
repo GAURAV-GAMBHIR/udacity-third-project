@@ -4,7 +4,7 @@ import psycopg2
 import sys
 from datetime import date
 
-db_name ="news"
+db_name = "news"
 
 query1 = "select title, count(title) from article_view WHERE GROUP BY title AND limit 3"
 
@@ -23,13 +23,15 @@ def database_connect(db_query):
         cursor.execute(sql_request)
         results = cursor.fetchall()
         conn.close()
-       
+
     except psycopg2.Error as err:
         print("Unable to connect to database. Exiting ...")
         print(err)
         sys.exit(1)
     return results
-#cdff
+
+
+# cdff
 def get_popular_articles():
     ""
     articles = database_connect(query1)
