@@ -30,4 +30,5 @@ we are using python3 program using the psycopg2 module to connect to the databas
   To run the python program, use the command 'python pythonlog.py'          
 
   
-
+### OUTPUT-
+  
