@@ -1,85 +1,83 @@
-#!/usr/bin/env python3
-
+# !/usr/bin/env python3
+# import postgresql db and time module
 import psycopg2
-import sys
 from datetime import date
 
-db_name = "news"
 
-# 1. What are the most popular three articles of all time?
-query1 = "select title, count(title) from article_view WHERE GROUP BY title AND limit 3"
-
-# 2. Who are the most popular article authors of all time?
-query2 = """select authors.name,sum(article_view.views) as views from
-article_view,authors where authors.id = article_view.author
-group by authors.name order by views desc"""
-
-# 3. On which days did more than 1% of requests lead to errors?
-query3 = "select * from error_log_view where \"Percent Error\" > 1"
+# connect to the postgrs database
+def postgres_db():
+    return psycopg2.connect(database="news")
 
 
-def database_connect(db_query):
+def top_articles():
+    # queries for select top three articles title and number of views
+    top_articles = """select articles.title, count(*) as x
+            from log, articles where log.status='200 OK'
+            and articles.slug = substr(log.path, 10)
+            group by articles.title order by x desc limit 3;"""
+    db = postgres_db()
+    cur = db.cursor()
+    # execute the database query by passing request articles
+    cur.execute(top_articles)
+    results = cur.fetchall()
 
-    try:
-        conn = psycopg2.connect(database="news")
-        cursor = conn.cursor()
-        cursor.execute(sql_request)
-        results = cursor.fetchall()
-        conn.close()
-
-    except psycopg2.Error as err:
-        print("Unable to connect to database. Exiting ...")
-        print(err)
-        sys.exit(1)
-    return results
-
-
-# cdff
-def get_popular_articles():
-    ""
-    articles = database_connect(query1)
-
-    # print header for popular articles
-    print('\nWhat are the most popular three articles of all time?\n')
-
-    # for every row print article name and nbr of views
-    for title, views in articles:
-        lst = "  " + '"' + title + '"' + " - " + str(views) + " views\n"
-        sys.stdout.write(lst)
+    # select title and number of views from results
+    for title, x in results:
+        print(" {} -> {} views".format(title, x))
+    # close the database connection
+    db.close()
 
 
-# func to find the authors w/ most pg views sorted w/ most pop author at top
-def get_popular_authors():
+def top_authors():
+    # queries for select top authors name and number of views
+    top_authors = """select authors.name, count(*) as x
+            from articles, authors, log where log.status='200 OK'
+            and authors.id = articles.author
+            and articles.slug = substr(log.path, 10)
+            group by authors.name order by x desc;"""
+    db = postgres_db()
+    cur = db.cursor()
+    cur.execute(top_authors)
+    results = cur.fetchall()
 
-    authors = database_connect(query2)
-
-    # print header for popular authors
-    print('\nWho are the most popular article authors of all time?\n')
-
-    # for every row print author name and total views
-    for name, views in authors:
-        print("  ", name, "-", views, "views")
-
-
-# function to find which days received more than 1% of error requests
-def get_day_errors():
-
-    err_days = database_connect(query3)
-
-    # print header for error days
-    print("\nOn which days did more than 1% of requests lead to errors?\n")
-
-    # for every row print date (Month DD, YYYY) and err %
-    for date, pct_errs in err_days:
-        bad_status = "  " + date + " - " + str(pct_errs) + "% errors\n"
-        sys.stdout.write(bad_status)
-        print('\n')
+    # select name and number of views of top three authors from results
+    for name, x in results:
+        print(" {} -> {} views".format(name, x))
+    db.close()
 
 
-# execute all three functions
+def error_day():
+    # queries for select days with more then 1% errors name
+    errors_days = """ WITH xyz AS (SELECT time::date AS day, count(*)
+                FROM log GROUP BY time::date ORDER BY time::date),
+                errors AS (SELECT time::date AS day, count(*)
+                FROM log WHERE status != '200 OK' GROUP BY time::date
+                ORDER BY time::date),
+                total_error AS (SELECT xyz.day, errors.count::
+                float / xyz.count::float * 100 AS abc
+                FROM xyz, errors WHERE xyz.day = errors.day )
+                SELECT * FROM total_error WHERE abc > 1;"""
+    db = postgres_db()
+    cur = db.cursor()
+    cur.execute(errors_days)
+    results = cur.fetchall()
+
+    # select status in results for highest errors
+    for status in results:
+        print(str(status[0]) + ' -> ' + str(status[1]) + ' % errors')
+    db.close()
+# call the all functions of this file by executing current module
 if __name__ == '__main__':
-    get_popular_articles()
-
-    get_popular_authors()
-
-    get_day_errors()
+    print("1. The Top three articles of all time")
+    print("+++++++++++++++++++++++++++++++++++++")
+    top_articles()
+    print("\n")
+    print("2. The Top authors of all time")
+    print("++++++++++++++++++++++++++++++")
+    top_authors()
+    print("\n")
+    print("3. The day more than 1% of requests lead to errors")
+    print("++++++++++++++++++++++++++++++++++++++++++++++++++")
+    error_day()
+    print("\n")
+    print("Thank you!, you have done successfully")
